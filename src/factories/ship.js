@@ -12,6 +12,7 @@ const shipFactory = (name) => {
   }
   return {
     size: ships[name],
+    name: name,
     isSunk: false,
     hits,
     hit() {
