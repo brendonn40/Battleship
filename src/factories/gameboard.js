@@ -40,6 +40,8 @@ const gameboardFactory = () => {
         return board[x][y];
         break;
       default:
+        let hit = board[x][y];
+        decrease(hit);
         board[x][y] = "hit";
         return board[x][y];
         break;
@@ -76,6 +78,13 @@ const gameboardFactory = () => {
       }
     }
     return true;
+  };
+  const decrease = (shipName) => {
+    for (const ship of ships) {
+      if (ship.name === shipName) {
+        ship.hit();
+      }
+    }
   };
   return { insert, receive, isGameOver };
 };
