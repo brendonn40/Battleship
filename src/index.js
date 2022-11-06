@@ -1,5 +1,9 @@
 import "./style.css";
-import { createBoardDisplay } from "./domStuff.js";
+import { createBoardDisplay, createFleet, createOpponent } from "./domStuff.js";
 
-createBoardDisplay();
-createBoardDisplay();
+const player = document.getElementById("player");
+const computer = document.getElementById("computer");
+player.appendChild(createFleet());
+computer.appendChild(createOpponent());
+createBoardDisplay(player);
+createBoardDisplay(computer);

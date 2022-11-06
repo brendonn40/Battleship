@@ -1,7 +1,6 @@
-export function createBoardDisplay() {
+export function createBoardDisplay(parent) {
   const board = document.createElement("table");
   const tbody = document.createElement("tbody");
-  const container = document.getElementById("container");
   board.classList.add("board");
   let letters = "abcdefghij";
   const letterRow = document.createElement("tr");
@@ -16,7 +15,7 @@ export function createBoardDisplay() {
     tbody.appendChild(createRow(i));
   }
   board.appendChild(tbody);
-  container.appendChild(board);
+  parent.appendChild(board);
 }
 
 function createRow(number) {
@@ -36,24 +35,18 @@ function createRow(number) {
   return row;
 }
 
-export function putKnightOnCell(x, y) {
-  let name = `[data-row="${x}"][data-column="${y}"]`;
-  const cell = document.querySelector(name);
-  let img = document.createElement("img");
-  img.src = "./knight.svg";
-  cell.appendChild(img);
+export function createFleet() {
+  let button = document.createElement("div");
+  button.innerText = "YOUR FLEET";
+  button.classList.add("btn-your-fleet");
+  return button;
 }
-export function makePath(arrayOfCoords) {
-  for (let i = 1; i < arrayOfCoords.length; i++) {
-    let name = `[data-row="${arrayOfCoords[i][0]}"][data-column="${arrayOfCoords[i][1]}"]`;
-    const cell = document.querySelector(name);
-    cell.innerText = i;
-  }
-  let cellName = `[data-row="${arrayOfCoords[0][0]}"][data-column="${arrayOfCoords[0][1]}"]`;
-  const oldPos = document.querySelector(cellName);
-  oldPos.innerHTML = "";
-  oldPos.style.backgroundColor = "red";
-  putKnightOnCell(...arrayOfCoords.pop());
+
+export function createOpponent() {
+  let button = document.createElement("div");
+  button.innerText = "OPPONENT";
+  button.classList.add("btn-opponent");
+  return button;
 }
 export function resetBoard(currentPos) {
   const board = document.getElementById("chess-board");
