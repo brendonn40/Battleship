@@ -6,19 +6,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BattleShip</title>
+    <script>function allowDrop(ev) {
+            ev.preventDefault();
+        }
+
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        }</script>
 </head>
 
 <body>
     <div class="header">BattleShip</div>
     <div id="container">
         <div id="player"></div>
-        <div class="ships">
-            <div id="carrier" class="ship"></div>
+        <!-- <div class="ships">
+            <div id="carrier" class="ship" draggable="true" ondragstart="drag(event)"></div>
             <div id="battleship" class="ship"></div>
             <div id="cruiser" class="ship"></div>
             <div id="submarine" class="ship"></div>
             <div id="destroyer" class="ship"></div>
-        </div>
+        </div> -->
 
         <div id="computer"></div>
     </div>

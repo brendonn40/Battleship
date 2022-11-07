@@ -1,3 +1,5 @@
+import hit from "./img/hit.svg";
+import miss from "./img/miss.svg";
 export function createBoardDisplay(parent) {
   const board = document.createElement("table");
   const tbody = document.createElement("tbody");
@@ -12,13 +14,17 @@ export function createBoardDisplay(parent) {
   }
   tbody.appendChild(letterRow);
   for (let i = 1; i < 11; i++) {
-    tbody.appendChild(createRow(i));
+    if (parent.id === "computer") {
+      tbody.appendChild(createRow(i, true));
+    } else {
+      tbody.appendChild(createRow(i));
+    }
   }
   board.appendChild(tbody);
   parent.appendChild(board);
 }
 
-function createRow(number) {
+function createRow(number, isComputer = false) {
   let row = document.createElement("tr");
   let th = document.createElement("th");
   th.innerText = number;
@@ -27,8 +33,11 @@ function createRow(number) {
     let td = document.createElement("td");
 
     td.classList.add("light");
-    td.setAttribute("data-row", i);
-    td.setAttribute("data-column", number - 1);
+    td.setAttribute("data-row", number - 1);
+    td.setAttribute("data-column", i);
+    if (isComputer) {
+      td.setAttribute("data", "computer");
+    }
     row.appendChild(td);
   }
 
@@ -53,4 +62,22 @@ export function resetBoard(currentPos) {
   board.innerHTML = "";
   createBoardDisplay();
   putKnightOnCell(...currentPos);
+}
+
+export function displayShot(coordinate, hitOrMiss, name) {
+  let x = coordinate[0];
+  let y = coordinate[1];
+  const imgHit = document.createElement("img");
+  const imgMiss = document.createElement("img");
+  imgHit.src = hit;
+  imgMiss.src = miss;
+  let cellname;
+  if (name === "pc") {
+    cellname = `[data-row="${x}"][data-column="${y}"][data="computer"]`;
+  } else {
+    cellname = `[data-row="${x}"][data-column="${y}"]`;
+  }
+
+  const cell = document.querySelector(cellname);
+  cell.appendChild(hitOrMiss ? imgHit : imgMiss);
 }

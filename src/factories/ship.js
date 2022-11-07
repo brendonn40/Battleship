@@ -1,4 +1,4 @@
-const shipFactory = (name) => {
+export const shipFactory = (name) => {
   let hits = 0;
   let ships = {
     Carrier: 5,
@@ -23,5 +23,3 @@ const shipFactory = (name) => {
     },
   };
 };
-
-module.exports = shipFactory;
