@@ -61,6 +61,20 @@ export const playerFactory = (name) => {
       }
     }
   };
+  const placeShip = (shipName, coordinate, axis) => {
+    let selected;
+    for (const ship of ships) {
+      if (ship.name === shipName) {
+        selected = ship;
+      }
+    }
+    if (board.insert(selected, coordinate, axis)) {
+      let index = ships.indexOf(selected);
+      ships.splice(index, 1);
+      return true;
+    }
+    return false;
+  };
   return {
     isTurn,
     name,
@@ -70,5 +84,6 @@ export const playerFactory = (name) => {
     randomAttack,
     randomizeShips,
     show,
+    placeShip,
   };
 };

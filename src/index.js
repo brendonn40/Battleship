@@ -1,6 +1,6 @@
 import "./style.css";
 import { createDisplay, clearDisplay } from "./domStuff.js";
-import { moveListener } from "./event.js";
+import { getCoordinates, moveListener } from "./event.js";
 import { playerFactory } from "./factories/player.js";
 import { shipFactory } from "./factories/ship.js";
 createDisplay();
@@ -9,6 +9,7 @@ function game() {
   let userPlayer = playerFactory("player");
   const random = document.getElementById("random");
   const start = document.getElementById("start");
+  const place = document.getElementById("place");
   computerPlayer.randomizeShips();
   random.addEventListener(
     "click",
@@ -26,5 +27,15 @@ function game() {
       moveListener(userPlayer, computerPlayer);
     }
   });
+  // place.addEventListener(
+  //   "click",
+  //   function (e) {
+  //     e.stopPropagation();
+  //     getCoordinates(userPlayer);
+  //     userPlayer.isTurn = true;
+  //     userPlayer.show();
+  //   },
+  //   { once: true }
+  // );
 }
 game();
