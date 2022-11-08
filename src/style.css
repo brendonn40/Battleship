@@ -117,22 +117,37 @@ body{
 }
 .ship{
   background: black;
-  height: var(--size);
-  font-size: 22px;
-  border-radius: 20px;
+  
 }
-#carrier{
-  width:calc(var(--size)* 5)
+
+button{
+  color: #fff;
+  background-color: #337ab7;
+  border-color: #2e6da4;
+  display: inline-block;
+  margin-bottom: 0;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
 }
-#battleship{
-  width:calc(var(--size)* 4)
+ul{
+  list-style: none;
 }
-#cruiser{
-  width:calc(var(--size)* 3)
-}
-#submarine{
-  width:calc(var(--size)* 3)
-}
-#destroyer{
-  width:calc(var(--size)* 2)
+ul > li{
+  margin-bottom: 10px;
 }

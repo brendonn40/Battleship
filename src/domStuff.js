@@ -37,6 +37,8 @@ function createRow(number, isComputer = false) {
     td.setAttribute("data-column", i);
     if (isComputer) {
       td.setAttribute("data", "computer");
+    } else {
+      td.setAttribute("data", "player");
     }
     row.appendChild(td);
   }
@@ -75,9 +77,46 @@ export function displayShot(coordinate, hitOrMiss, name) {
   if (name === "pc") {
     cellname = `[data-row="${x}"][data-column="${y}"][data="computer"]`;
   } else {
-    cellname = `[data-row="${x}"][data-column="${y}"]`;
+    cellname = `[data-row="${x}"][data-column="${y}"][data="player"]`;
   }
 
   const cell = document.querySelector(cellname);
   cell.appendChild(hitOrMiss ? imgHit : imgMiss);
+}
+
+export function createDisplay() {
+  const player = document.getElementById("player");
+  const computer = document.getElementById("computer");
+  player.appendChild(createFleet());
+  computer.appendChild(createOpponent());
+  createBoardDisplay(player);
+  createBoardDisplay(computer);
+}
+export function putShipOnDisplay(coordinate, ship, axis) {
+  let x = coordinate[0];
+  let y = coordinate[1];
+  if (axis === "y") {
+    for (let i = 0; i < ship.size; i++) {
+      let cellname = `[data-row="${x + i}"][data-column="${y}"][data="player"]`;
+      const cell = document.querySelector(cellname);
+      cell.style.backgroundColor = "blue";
+    }
+  }
+  if (axis === "x") {
+    for (let i = 0; i < ship.size; i++) {
+      let cellname = `[data-row="${x}"][data-column="${y + i}"][data="player"]`;
+      const cell = document.querySelector(cellname);
+      cell.style.backgroundColor = "blue";
+    }
+  }
+}
+export function clearDisplay() {
+  clear("player");
+  clear("computer");
+}
+function clear(elementName) {
+  const content = document.getElementById(elementName);
+  while (content.firstChild) {
+    content.removeChild(content.firstChild);
+  }
 }

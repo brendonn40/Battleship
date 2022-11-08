@@ -1,24 +1,30 @@
 import "./style.css";
-import { createBoardDisplay, createFleet, createOpponent } from "./domStuff.js";
+import { createDisplay, clearDisplay } from "./domStuff.js";
 import { moveListener } from "./event.js";
 import { playerFactory } from "./factories/player.js";
-const player = document.getElementById("player");
-const computer = document.getElementById("computer");
-player.appendChild(createFleet());
-computer.appendChild(createOpponent());
-createBoardDisplay(player);
-createBoardDisplay(computer);
-
-let computerPlayer = playerFactory("pc");
-computerPlayer.randomizeShips();
-let userPlayer = playerFactory("player");
-userPlayer.randomizeShips();
-userPlayer.isTurn = true;
-moveListener(userPlayer, computerPlayer);
-// while (!userPlayer.board.isGameOver() && !computerPlayer.board.isGameOver()) {
-//   if (userPlayer.isTurn) {
-//     moveListener(userPlayer, computerPlayer);
-//   } else {
-//     computerPlayer.randomAttack(userPlayer);
-//   }
-// }
+import { shipFactory } from "./factories/ship.js";
+createDisplay();
+function game() {
+  let computerPlayer = playerFactory("pc");
+  let userPlayer = playerFactory("player");
+  const random = document.getElementById("random");
+  const start = document.getElementById("start");
+  computerPlayer.randomizeShips();
+  random.addEventListener(
+    "click",
+    function (e) {
+      e.stopPropagation();
+      userPlayer.randomizeShips();
+      userPlayer.isTurn = true;
+      userPlayer.show();
+    },
+    { once: true }
+  );
+  start.addEventListener("click", function (e) {
+    e.stopPropagation();
+    if (userPlayer.isTurn) {
+      moveListener(userPlayer, computerPlayer);
+    }
+  });
+}
+game();

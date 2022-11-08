@@ -1,4 +1,4 @@
-import { displayShot } from "../domStuff.js";
+import { displayShot, putShipOnDisplay } from "../domStuff.js";
 import { gameboardFactory } from "./gameboard.js";
 import { shipFactory } from "./ship.js";
 
@@ -39,14 +39,27 @@ export const playerFactory = (name) => {
   }
   const randomizeShips = () => {
     for (const ship of ships) {
-      let add = board.insert(ship, randomCoordinate(), "y");
+      let number = getRndInteger(1, 3);
+      let axis = number === 1 ? "y" : "x";
+      let add = board.insert(ship, randomCoordinate(), axis);
       while (!add) {
-        add = board.insert(ship, randomCoordinate(), "y");
+        add = board.insert(ship, randomCoordinate(), axis);
       }
     }
   };
   const randomCoordinate = () => {
     return [getRndInteger(0, 10), getRndInteger(0, 10)];
+  };
+  const show = () => {
+    for (let i = 0; i < 10; i++) {
+      for (let j = 0; j < 10; j++) {
+        let cellname = `[data-row="${i}"][data-column="${j}"][data="player"]`;
+        if (board.board[i][j] !== "empty") {
+          const cell = document.querySelector(cellname);
+          cell.style.background = "blue";
+        }
+      }
+    }
   };
   return {
     isTurn,
@@ -56,5 +69,6 @@ export const playerFactory = (name) => {
     receiveAttack,
     randomAttack,
     randomizeShips,
+    show,
   };
 };
